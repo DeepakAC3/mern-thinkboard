@@ -2,6 +2,10 @@
 
 A full-stack note-taking application built with the MERN stack (MongoDB, Express, React, Node.js). ThinkBoard allows users to create, view, and manage notes efficiently with a modern UI.
 
+# Home Page
+
+![alt text](HomePage.jpg)
+
 ## Features
 
 - Create, read, update, and delete notes
