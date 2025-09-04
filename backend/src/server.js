@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path"; // built in
+import { clerkMiddleware } from "@clerk/express";
 
 import notesRoutes from "./routes/notesRoutes.js";
 import { connectDB } from "./config/db.js";
@@ -27,8 +28,24 @@ if (process.env.NODE_ENV !== "production") {
     }),
   );
 }
+
+// Clerk middleware - MUST come before protected routes
+app.use(clerkMiddleware());
+
 app.use(express.json()); // read from the req.body before doing anything else
 app.use(rateLimiter); // apply rate limiting middleware
+
+// Add a debug middleware to log req.auth
+// app.use((req, res, next) => {
+//   if (req.url.startsWith("/api/notes")) {
+//     console.log("Request to notes API:");
+//     console.log("- URL:", req.url);
+//     console.log("- Method:", req.method);
+//     console.log("- req.auth:", req.auth);
+//     console.log("- Authorization header:", req.headers.authorization);
+//   }
+//   next();
+// });
 // parse the json body: req.body
 
 // app.use((req,res,next) =>{
@@ -51,6 +68,9 @@ if (process.env.NODE_ENV === "production") {
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server started on PORT: ", PORT); // now the DB is connected before the server starts
+    // Server started
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
+    );
   });
 });
