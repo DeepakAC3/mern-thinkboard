@@ -37,41 +37,6 @@ NoteForge/
 
 ### Prerequisites
 
-# NoteForge
-
-A full-stack note-taking application built with the MERN stack (MongoDB, Express, React, Node.js). ThinkBoard allows users to create, view, and manage notes efficiently with a modern UI.
-
-## Features
-
-- Create, read, update, and delete notes
-- Rate limiting for API requests
-- Responsive design with Tailwind CSS
-- RESTful API backend
-- Modern React frontend with Vite
-
-## Project Structure
-
-```
-NoteForge/
-├── backend/      # Express.js API server
-│   ├── src/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── middleware/
-├── frontend/     # React client app
-│   ├── src/
-│   ├── components/
-│   ├── pages/
-│   └── lib/
-├── README.md
-└── package.json
-```
-
-## Getting Started
-
-### Prerequisites
-
 - Node.js & npm
 - MongoDB
 
