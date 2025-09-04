@@ -1,87 +1,62 @@
 import Note from "../models/Note.js";
 
-export async function getAllNotes(req, res) {
+
+export async function getAllNotes(_,res){
   try {
-    // Only return notes created by the logged-in user
-    const userId =
-      typeof req.auth === "function" ? req.auth().userId : req.auth?.userId;
-    const notes = await Note.find({ user: userId }).sort({
-      createdAt: -1,
-    });
+    const notes = await Note.find().sort({ createdAt:-1 }); // newest first
     res.status(200).json(notes);
   } catch (error) {
-    console.error("error in getAllNotes controller", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("error in getAllNotes controller",error);
+    res.status(500).json({message:"Internal server error"});
   }
-}
+};
 
-export async function getNoteById(req, res) {
-  try {
+export async function getNoteById(req,res){
+  try{
     const note = await Note.findById(req.params.id);
-    if (!note) return res.status(404).json({ message: "Note not found" });
-    // Only allow access if the note belongs to the logged-in user
-    const userId =
-      typeof req.auth === "function" ? req.auth().userId : req.auth?.userId;
-    if (note.user !== userId) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
+    if(!note) return res.status(404).json({message:"Note not found"});
     res.json(note);
-  } catch (error) {
-    console.error("error in getNoteById controller", error);
-    res.status(500).json({ message: "Internal server error" });
+  }catch(error){
+    console.error("error in getAllNotes controller",error);
+    res.status(500).json({message:"Internal server error"});
   }
-}
+};
 
-export async function createNote(req, res) {
-  try {
-    const { title, content } = req.body;
-    // Associate the note with the logged-in Clerk user
-    const userId =
-      typeof req.auth === "function" ? req.auth().userId : req.auth?.userId;
-    const note = new Note({ title, content, user: userId });
+export async function createNote(req,res){
+  try{
+    const {title,content} = req.body;
+    const note = new Note({title, content});
+    
     const savedNote = await note.save();
     res.status(200).json(savedNote);
-  } catch (error) {
-    console.error("Error in createNote controller", error);
-    res.status(500).json({ message: "Internal server error" });
+  } catch (error){
+    console.error("Error in createNote controller",error);
+    res.status(500).json({message:"Internal server error"});
   }
-}
+};
 
-export async function updateNote(req, res) {
-  try {
-    const { title, content } = req.body;
-    const note = await Note.findById(req.params.id);
-    if (!note) return res.status(404).json({ message: "Note not found" });
-    // Only allow update if the note belongs to the logged-in user
-    const userId =
-      typeof req.auth === "function" ? req.auth().userId : req.auth?.userId;
-    if (note.user !== userId) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-    note.title = title;
-    note.content = content;
-    const updatedNote = await note.save();
+export async function updateNote(req,res){
+  try{
+    const {title,content} = req.body;
+    const updatedNote = await Note.findByIdAndUpdate(req.params.id,{title,content},{new: true,});
+    if(!updatedNote) return res.status(404).json({message:"Note not found"});
+
+
+    //this is what we have put in the router |--> the /:id
     res.status(200).json(updatedNote);
   } catch (error) {
-    console.error("Error in updateNote controller", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Error in updateNote controller",error);
+    res.status(500).json({message:"Internal server error"});
   }
-}
+};
 
-export async function deleteNote(req, res) {
-  try {
-    const note = await Note.findById(req.params.id);
-    if (!note) return res.status(404).json({ message: "Note not found" });
-    // Only allow delete if the note belongs to the logged-in user
-    const userId =
-      typeof req.auth === "function" ? req.auth().userId : req.auth?.userId;
-    if (note.user !== userId) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-    await note.deleteOne();
-    res.json({ message: "Note deleted successfully" });
-  } catch (error) {
-    console.error("Error in deleteNote controller", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-}
+export async function deleteNote(req, res){
+ try{
+   const deletedNote = await Note.findByIdAndDelete(req.params.id);
+   if(!deletedNote) return res.status(404).json({message:"Note not found"});
+   res.json({message:"Note deleted successfully"}); // by default its 200
+ }catch(error){
+   console.error("Error in deleteNote controller",error);
+   res.status(500).json({message:"Internal server error"});
+ }
+};
