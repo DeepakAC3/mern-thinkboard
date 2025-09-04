@@ -24,8 +24,7 @@ const HomePage = () => {
         setNotes(res.data);
         setIsRateLimited(false); // fetch is successful
       } catch (error) {
-        console.log("Error fetching notes");
-        console.log(error);
+        console.error(error);
         if (error.response?.status === 429) {
           // should be response not res, otherwise the component will not load
           setIsRateLimited(true);
