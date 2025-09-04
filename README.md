@@ -1,4 +1,4 @@
-# MERN ThinkBoard
+# NoteForge
 
 A full-stack note-taking application built with the MERN stack (MongoDB, Express, React, Node.js). ThinkBoard allows users to create, view, and manage notes efficiently with a modern UI.
 
@@ -17,7 +17,7 @@ A full-stack note-taking application built with the MERN stack (MongoDB, Express
 ## Project Structure
 
 ```
-mern-thinkboard/
+NoteForge/
 ├── backend/      # Express.js API server
 │   ├── src/
 │   ├── controllers/
@@ -37,7 +37,7 @@ mern-thinkboard/
 
 ### Prerequisites
 
-# MERN ThinkBoard
+# NoteForge
 
 A full-stack note-taking application built with the MERN stack (MongoDB, Express, React, Node.js). ThinkBoard allows users to create, view, and manage notes efficiently with a modern UI.
 
@@ -52,7 +52,7 @@ A full-stack note-taking application built with the MERN stack (MongoDB, Express
 ## Project Structure
 
 ```
-mern-thinkboard/
+NoteForge/
 ├── backend/      # Express.js API server
 │   ├── src/
 │   ├── controllers/
@@ -130,7 +130,7 @@ Environment variables used for Clerk:
   - `CLERK_PUBLISHABLE_KEY` — optional server-side copy of the publishable key (pk\_...)
   - `CLIENT_URL` — the frontend origin (used for CORS), e.g. `http://localhost:5173` or your deployed frontend URL
 
-# MERN ThinkBoard
+# NoteForge
 
 A simple MERN notes app with Clerk authentication.
 
