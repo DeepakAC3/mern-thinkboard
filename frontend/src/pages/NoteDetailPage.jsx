@@ -4,22 +4,25 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import api from "../lib/axios"; // Importing the axios instance
 import { Link, useNavigate, useParams } from "react-router";
+import { useAuth } from "@clerk/clerk-react";
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
+  const { getToken } = useAuth();
 
   const { id } = useParams(); // notes/:id so id if it was notes/:noteId then noteId
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
+        // Token is automatically added by axios interceptor
         const res = await api.get(`/notes/${id}`);
         setNote(res.data);
       } catch (error) {
-        console.log("Error fetching note:", error);
+        console.error("Error fetching note:", error);
         toast.error("Failed to fetch the note");
       } finally {
         setLoading(false);
@@ -37,11 +40,12 @@ const NoteDetailPage = () => {
       return; // If the user cancels, do nothing
     }
     try {
+      // Token is automatically added by axios interceptor
       await api.delete(`/notes/${id}`);
       toast.success("Note deleted successfully");
       navigate("/");
     } catch (error) {
-      console.log("Error deleting note:", error);
+      console.error("Error deleting note:", error);
       toast.error("Failed to delete the note");
     }
   };
@@ -53,11 +57,12 @@ const NoteDetailPage = () => {
     }
     setSaving(true);
     try {
+      // Token is automatically added by axios interceptor
       await api.put(`/notes/${id}`, note);
       toast.success("Note updated successfully");
       navigate("/");
     } catch (error) {
-      console.log("Error updating note:", error);
+      console.error("Error updating note:", error);
       toast.error("Failed to update the note");
     } finally {
       setSaving(false);
