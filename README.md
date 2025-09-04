@@ -36,9 +36,13 @@ NoteForge/
 ## Getting Started
 
 ### Prerequisites
+Minimum tools and services required to run the project locally:
 
-- Node.js & npm
-- MongoDB
+- Node.js (LTS) — Node 18+ recommended
+- npm — used to install dependencies and run scripts
+- MongoDB — either a local mongod instance or a hosted MongoDB Atlas cluster
+- A Clerk account (for authentication) — you'll need a publishable key and a secret key (see "Environment variables" below)
+
 
 ### Installation
 
