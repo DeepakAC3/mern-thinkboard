@@ -36,8 +36,8 @@ const CreatePage = () => {
         });
       } else {
         console.error("Error creating note:", error);
+        toast.error("Failed to create note! Please try again later.");
       }
-      toast.error("Failed to create note! Please try again later.");
     } finally {
       setLoading(false); // set loading to false when the request is complete
     }
