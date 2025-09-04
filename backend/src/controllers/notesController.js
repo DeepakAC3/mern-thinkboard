@@ -17,7 +17,7 @@ export async function getNoteById(req,res){
     if(!note) return res.status(404).json({message:"Note not found"});
     res.json(note);
   }catch(error){
-    console.error("error in getAllNotes controller",error);
+    console.error("error in getNoteById controller",error);
     res.status(500).json({message:"Internal server error"});
   }
 };
