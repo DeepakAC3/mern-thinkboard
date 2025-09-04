@@ -19,7 +19,7 @@ const NoteDetailPage = () => {
         const res = await api.get(`/notes/${id}`);
         setNote(res.data);
       } catch (error) {
-        console.log("Error fetching note:", error);
+        console.error("Error fetching note:", error);
         toast.error("Failed to fetch the note");
       } finally {
         setLoading(false);
