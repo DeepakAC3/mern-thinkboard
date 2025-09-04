@@ -3,9 +3,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: ["@clerk/clerk-react"],
-    },
+  optimizeDeps: {
+    include: ["@clerk/clerk-react"],
+  },
+  ssr: {
+    noExternal: ["@clerk/clerk-react"],
   },
 });
